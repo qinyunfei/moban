@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sgg.qin.dao.systems.SysResourceMapper">
+	<resultMap id="BaseResultMap" type="sgg.qin.domain.systems.SysResource">
+		<!-- WARNING - @mbg.generated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="pid" jdbcType="INTEGER" property="pid" />
+		<result column="permission" jdbcType="VARCHAR" property="permission" />
+		<result column="available" jdbcType="BIT" property="available" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+	</resultMap>
+	
+	<resultMap id="resource_sublist_ResultMap" type="sgg.qin.domain.systems.SysResource">
+		<!-- WARNING - @mbg.generated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="url" jdbcType="VARCHAR" property="url" />
+		<result column="pid" jdbcType="INTEGER" property="pid" />
+		<result column="permission" jdbcType="VARCHAR" property="permission" />
+		<result column="available" jdbcType="BIT" property="available" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+		<collection property="children" javaType="ArrayList" column="id"  fetchType="eager" ofType="sgg.qin.domain.systems.SysResource" select="listSubResourceById"/>
+	</resultMap>
+
+	<!--根据角色名获取权限字符集合 -->
+	<select id="getResourceTostrByRname" resultType="string">
+		SELECT
+			sys_resource.permission
+		FROM
+			sys_resource
+		WHERE
+			sys_resource.id IN (
+							 SELECT 
+							 	sys_roles_resource.resource_id 
+							 FROM 
+							 	sys_roles_resource
+							 WHERE 
+							 	sys_roles_resource.role_id = ( 
+							 							SELECT 
+							 								sys_roles.id 
+							 							FROM
+															sys_roles 
+														WHERE 
+															sys_roles.role = #{rname} 
+															) 
+								)
+	</select>
+	<!--根据角色id获取权限字符集合 -->
+	<select id="getResourceTostrByRid" resultType="string">
+		SELECT
+			sys_resource.permission
+		FROM
+			sys_resource
+		WHERE
+			sys_resource.id IN (
+							 SELECT 
+							 	sys_roles_resource.resource_id 
+							 FROM 
+							 	sys_roles_resource
+							 WHERE 
+							 	sys_roles_resource.role_id = #{id} 
+								)	
+	</select>
+	
+	<!-- 根据用户名获取权限集合 -->
+	<select id="findPermissionsByUserName" parameterType="String"
+		resultType="String">
+		SELECT
+			d.permission
+		FROM
+			sys_resource d
+		WHERE
+			d.id IN(
+				SELECT
+					c.resource_id
+				FROM
+					sys_roles_resource c
+				WHERE
+					c.role_id IN(
+						SELECT
+							b.role_id	
+						FROM
+							sys_users_roles b
+						WHERE
+							b.user_id =(
+								SELECT
+									a.id
+								FROM
+									sys_user a
+								WHERE
+									a.username = #{username}
+										)
+								)
+						)
+	</select>
+
+	<select id="listSubResourceById" resultMap="resource_sublist_ResultMap">
+		SELECT
+			sys_resource.pid,
+			sys_resource.url,
+			sys_resource.type,
+			sys_resource.`name`,
+			sys_resource.id,
+			sys_resource.permission,
+			sys_resource.available,
+			sys_resource.icon 
+		FROM
+			sys_resource 
+		WHERE
+			sys_resource.pid =#{id}
+	</select>
+	
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd	
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- 开启springmvc开挂模式（将springmvc的一部分组件替换为更为强大的组件） -->
+	<mvc:annotation-driven conversion-service="conversionService">
+		<!-- HandlerMethodArgumentResolver(自定义的参数解析器) -->
+		<mvc:argument-resolvers>
+			<bean
+				class="sgg.qin.framework.springmvc.argumentresolvers.CurrentUserNameMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<!-- 扫描包的@Controller组件 其他不管 保持分工明确 系统默认的过滤器会扫描包含 @Service,@Component,@Repository,@Controller注解修饰的类 
+		注册javabin 当我们配置了自己过滤器时需要关闭系统默认的过滤器这时系统不会为任何java类注册bean 然后我们可以自定义自己的过滤器 -->
+	<context:component-scan base-package="sgg.qin.web"
+		use-default-filters="false">
+		<!--引入系统Controller过滤器 为实现了@Controller注解的注册bean -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+
+	<!--对静态资源的访问交由servct处理 建议使用下面的 -->
+	<mvc:default-servlet-handler />
+
+
+	<!-- ViewResolver视图解析器 springMVC9大组件之一） 可以配置多个 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="5" />
+	</bean>
+
+	<!-- 自定义视图解析器 -->
+	<bean class="sgg.qin.framework.springmvc.viewresolver.ImgViewResolver">
+		<property name="order" value="1" />
+	</bean>
+	<!-- 视图解析器 配置结束 -->
+	<!-- 视图解析器 配置结束 -->
+
+	<!-- 使用SpringMVC管理国际化配置文件 1、ResourceBundleMessageSource：专门来管理国际化文件的 2、这个组件的id必须叫messageSource，其他都不行 
+		3、去页面直接使用fmt:message标签取值，自动切换国际化； -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="i18n"></property>
+	</bean>
+	<!-- 自定义 localeResolver locale解析器 springMVC九大组件之一 负责locale的相关信息 只能配置一个 -->
+	<bean id="localeResolver"
+		class="sgg.qin.framework.springmvc.localeresolver.MyLocaleResolver"></bean>
+
+
+	<!-- 上传拦截，如最大上传值及最小上传值 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>104857600</value>
+		</property>
+		<property name="maxInMemorySize">
+			<value>4096</value>
+		</property>
+		<property name="defaultEncoding">
+			<value>utf-8</value>
+		</property>
+	</bean>
+
+
+	<!--让SpringMVC用我们的ConversionService组件 1)、利用SpringMVC提供的一个方便的工厂类，创建我们的ConversionService 
+		2)、把Converter注册到ConversionService中 3)、告诉SpringMVC使用我们的ConversionService 4）、org.springframework.context.support.ConversionServiceFactoryBean创建的ConversionService没有格式化器 
+		5）、org.springframework.format.support.FormattingConversionServiceFactoryBean以后推荐使用这个，他创建的ConversionService具有格式化器和转换器 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- 自定义的类型转换器 -->
+		<property name="converters">
+			<set>
+				<bean class="sgg.qin.framework.springmvc.converter.StringToDeptConvertor"></bean>
+			</set>
+		</property>
+	</bean>
+
+	<!--开启aop注解 proxy-target-class属性值决定是基于接口的还是基于类的代理被创建 就是使用jdk的动态代理呀还是使用cglib的动态代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!--手动注入切面到mvc -->
+	<bean id="cacheAspect" class="sgg.qin.framework.aop.ActionAspec"></bean>
+
+	<!-- exceptionResolver自定义异常处理程序解析器 springmvc九大组件之一 全局异常捕捉 -->
+	<bean class="sgg.qin.framework.springmvc.exception.MyExceptionResolver"></bean>
+
+	<!-- 开启shiro 的权限注解 shor权限处理的入口 -->
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+
+
+</beans>
+
+
+
+

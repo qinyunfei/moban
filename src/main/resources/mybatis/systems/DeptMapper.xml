@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sgg.qin.dao.systems.DeptMapper">
+  <resultMap id="BaseResultMap" type="sgg.qin.domain.others.Dept">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="deptno" jdbcType="INTEGER" property="deptno" />
+    <result column="dname" jdbcType="VARCHAR" property="dname" />
+    <result column="creatData" jdbcType="DATE" property="creatdata" />
+  </resultMap>
+</mapper>
