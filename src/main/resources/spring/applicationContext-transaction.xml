@@ -59,7 +59,7 @@
 		<aop:pointcut id="pc" expression="execution(* sgg.qin.service..*(..))" />
 		<!-- 定义环绕通知 -->
 		<!-- aop:advisor，是有顺序的，必须放在aop:pointcut之后 -->
-		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="50"/>
 	</aop:config>
 	
 

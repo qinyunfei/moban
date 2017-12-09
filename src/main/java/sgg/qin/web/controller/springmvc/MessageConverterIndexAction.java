@@ -37,6 +37,8 @@ public class MessageConverterIndexAction extends BaseController{
 
 	
 	/*
+	 * 
+	 * 接口 HttpMessageConverter
 	 * @ResponseBody:将返回值写出去；	
 	 * 		produces="text/html;charset=utf-8":可以解决写出去的字符乱码
 	 * @RequestBody:获取到请求体的所有数据（只有post请求有请求体）

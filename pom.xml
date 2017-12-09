@@ -43,7 +43,7 @@
 		<druid.version>1.1.0</druid.version>
 		<!-- mysql数据库驱动 -->
 		<mysql.connector>5.1.42</mysql.connector>
-		
+
 		<!-- 功能性组件结束 -->
 
 		<!-- 框架配置开始 -->
@@ -81,9 +81,10 @@
 		<log4j.version>1.2.17</log4j.version>
 		<slf4j.version>1.7.6</slf4j.version>
 
-		<!-- servlet-api，jsp-api，jstl -->
+		<!-- servlet-api，jsp-api，el,jstl -->
 		<javax.servlet-api.version>3.0.1</javax.servlet-api.version>
 		<jsp-api.version>2.2</jsp-api.version>
+		<javax.el-api.version>2.2.4</javax.el-api.version>
 		<jstl.version>1.2</jstl.version>
 
 
@@ -153,6 +154,7 @@
 			<artifactId>httpclient</artifactId>
 			<version>${httpclient.version}</version>
 		</dependency>
+
 
 
 		<!-- 其他功能性组件 -->
@@ -332,12 +334,13 @@
 		</dependency>
 		<!-- shiro 框架配置结束 -->
 
-		<!-- hibernate-validator 数据验证框架 -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>${validator.version}</version>
+			<version>6.0.2.Final</version>
 		</dependency>
+
 
 		<!-- 工作流 -->
 		<dependency>
@@ -401,6 +404,7 @@
 			<version>${javax.servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -410,6 +414,18 @@
 
 	</dependencies>
 
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8080</port>
+					<path>/</path>
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

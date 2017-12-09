@@ -23,8 +23,6 @@
 </head>
 
 <body>
-	用户名<br>
-	密码<br>
 	
 	以下是国际化的使用方法<br>
 	<fmt:message key="login.username"/><br>

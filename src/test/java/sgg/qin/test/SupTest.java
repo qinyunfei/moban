@@ -6,7 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring/ApplicationContext.xml")
+@ContextConfiguration("classpath:spring/applicationContext*.xml")
 public class SupTest {
 	@Before
 	public void pritNoBug() {

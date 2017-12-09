@@ -22,7 +22,7 @@ public class MyLocaleResolver implements LocaleResolver{
 			Locale locale = new Locale(str.split("_")[0], str.split("_")[1]);
 			return locale;
 		}
-		//如果没带就是请求头的
+		//如果没带就使用请求头的locale
 		return request.getLocale();
 	}
 	

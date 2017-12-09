@@ -31,13 +31,13 @@ public class Dept implements Serializable {
 	@Id
     private Integer deptno;
     
-	//有很多数据验证注解请百度
+	//有很多数据验证注解请百度 
     @NotNull(message = "用户名不能为空")  
     @Length(min=5, max=20, message="用户名长度必须在5-20之间")  
     @Pattern(regexp = "^[a-zA-Z_]\\w{4,19}$", message = "用户名必须以字母下划线开头，可由字母数字下划线组成")  
     private String dname;
     
-    @Past(message="没出生都会上网录信息") //数据验证  日期必须是一个过去的时间
+    @Past(message="{user.creatdata.past}") //数据验证 使用表达式  日期必须是一个过去的时间 可以实现国际化消息提示
 	@DateTimeFormat(pattern="yyyy-MM-dd")//日期格式化(设置页面提交数据的格式) 有很多格式化注解请百度
     @Column(name = "creatData")
     private Date creatdata;

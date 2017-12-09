@@ -10,7 +10,8 @@
 
 
 	<!-- 开启springmvc开挂模式（将springmvc的一部分组件替换为更为强大的组件） -->
-	<mvc:annotation-driven conversion-service="conversionService">
+	<mvc:annotation-driven conversion-service="conversionService"
+		validator="validator">
 		<!-- HandlerMethodArgumentResolver(自定义的参数解析器) -->
 		<mvc:argument-resolvers>
 			<bean
@@ -20,7 +21,7 @@
 
 	<!-- 扫描包的@Controller组件 其他不管 保持分工明确 系统默认的过滤器会扫描包含 @Service,@Component,@Repository,@Controller注解修饰的类 
 		注册javabin 当我们配置了自己过滤器时需要关闭系统默认的过滤器这时系统不会为任何java类注册bean 然后我们可以自定义自己的过滤器 -->
-	<context:component-scan base-package="sgg.qin.web"
+	<context:component-scan base-package="sgg.qin"
 		use-default-filters="false">
 		<!--引入系统Controller过滤器 为实现了@Controller注解的注册bean -->
 		<context:include-filter type="annotation"
@@ -47,14 +48,7 @@
 		<property name="order" value="1" />
 	</bean>
 	<!-- 视图解析器 配置结束 -->
-	<!-- 视图解析器 配置结束 -->
 
-	<!-- 使用SpringMVC管理国际化配置文件 1、ResourceBundleMessageSource：专门来管理国际化文件的 2、这个组件的id必须叫messageSource，其他都不行 
-		3、去页面直接使用fmt:message标签取值，自动切换国际化； -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="i18n"></property>
-	</bean>
 	<!-- 自定义 localeResolver locale解析器 springMVC九大组件之一 负责locale的相关信息 只能配置一个 -->
 	<bean id="localeResolver"
 		class="sgg.qin.framework.springmvc.localeresolver.MyLocaleResolver"></bean>
@@ -87,9 +81,11 @@
 			</set>
 		</property>
 	</bean>
-
 	<!--开启aop注解 proxy-target-class属性值决定是基于接口的还是基于类的代理被创建 就是使用jdk的动态代理呀还是使用cglib的动态代理 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+
+
 
 	<!--手动注入切面到mvc -->
 	<bean id="cacheAspect" class="sgg.qin.framework.aop.ActionAspec"></bean>
@@ -102,8 +98,16 @@
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
 	</bean>
-
-
+	<!-- 开启方法级别验证 -->
+	<bean
+		class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
+		<property name="validator" ref="validator"></property>
+	</bean>
+	<!-- 高级用法请百度 -->
+	<mvc:cors>
+		<!-- 所有请求都能跨域 -->
+		<mvc:mapping path="/**" />
+	</mvc:cors>
 
 </beans>
 

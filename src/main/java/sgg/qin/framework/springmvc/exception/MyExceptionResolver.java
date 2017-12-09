@@ -33,12 +33,16 @@ public class MyExceptionResolver implements HandlerExceptionResolver {
 			FastJsonJsonView view = new FastJsonJsonView();
 			Map<String, Object> attributes = new HashMap<String, Object>();
 			attributes.put("success", false);
-
-			if (ex.getMessage().startsWith("#")) {
-				attributes.put("msg", ex.getMessage());
-			} else {
+			if (ex.getMessage()!=null) {
+				if (ex.getMessage().startsWith("#")) {
+					attributes.put("msg", ex.getMessage());
+				} else {
+					attributes.put("msg", "操作失败");
+				}
+			}else {
 				attributes.put("msg", "操作失败");
 			}
+			
 			attributes.put("exception", ex.getMessage());
 			view.setAttributesMap(attributes);
 			mv.setView(view);
