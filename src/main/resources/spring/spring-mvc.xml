@@ -67,8 +67,7 @@
 			<value>utf-8</value>
 		</property>
 	</bean>
-
-
+	
 	<!--让SpringMVC用我们的ConversionService组件 1)、利用SpringMVC提供的一个方便的工厂类，创建我们的ConversionService 
 		2)、把Converter注册到ConversionService中 3)、告诉SpringMVC使用我们的ConversionService 4）、org.springframework.context.support.ConversionServiceFactoryBean创建的ConversionService没有格式化器 
 		5）、org.springframework.format.support.FormattingConversionServiceFactoryBean以后推荐使用这个，他创建的ConversionService具有格式化器和转换器 -->

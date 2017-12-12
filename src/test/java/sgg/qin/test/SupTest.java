@@ -7,6 +7,29 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/applicationContext*.xml")
+/** 
+*　　　　　　　　┏┓　　　┏┓+ + 
+*　　　　　　　┏┛┻━━━┛┻┓ + + 
+*　　　　　　　┃　　　　　　　┃ 　 
+*　　　　　　　┃　　　━　　　┃ ++ + + + 
+*　　　　　　 ████━████ ┃+ 
+*　　　　　　　┃　　　　　　　┃ + 
+*　　　　　　　┃　　　┻　　　┃ 
+*　　　　　　　┃　　　　　　　┃ + + 
+*　　　　　　　┗━┓　　　┏━┛ 
+*　　　　　　　　　┃　　　┃　　　　　　　　　　　 
+*　　　　　　　　　┃　　　┃ + + + + 
+*　　　　　　　　　┃　　　┃　　　　Code is far away from bug with the animal protecting　　　　　　　 
+*　　　　　　　　　┃　　　┃ + 　　　　神兽保佑,代码无bug　　 
+*　　　　　　　　　┃　　　┃ 
+*　　　　　　　　　┃　　　┃　　+　　　　　　　　　 
+*　　　　　　　　　┃　 　　┗━━━┓ + + 
+*　　　　　　　　　┃ 　　　　　　　┣┓ 
+*　　　　　　　　　┃ 　　　　　　　┏┛ 
+*　　　　　　　　　┗┓┓┏━┳┓┏┛ + + + + 
+*　　　　　　　　　　┃┫┫　┃┫┫ 
+*　　　　　　　　　　┗┻┛　┗┻┛+ + + + 
+*/
 public class SupTest {
 	@Before
 	public void pritNoBug() {
@@ -33,6 +56,10 @@ public class SupTest {
 		       System.out.println("....................佛祖开光 ,永无BUG...................");
 		       System.out.println();
 		       System.out.println();
+		       
+		       
+		       
+		       
 		   }
 	
 

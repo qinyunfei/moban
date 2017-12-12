@@ -334,12 +334,16 @@
 		</dependency>
 		<!-- shiro 框架配置结束 -->
 
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+
+		<!-- hibernate-validator 注意如果使用高版本 则需要对应的tomcat 和jdk 建议tomcat8.5 和jdk8 -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.2.Final</version>
+			<version>6.0.5.Final</version>
 		</dependency>
+
+
+
 
 
 		<!-- 工作流 -->
@@ -413,19 +417,5 @@
 
 
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<configuration>
-					<port>8080</port>
-					<path>/</path>
-					<uriEncoding>UTF-8</uriEncoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
