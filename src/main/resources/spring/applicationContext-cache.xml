@@ -13,6 +13,7 @@
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
 		<property name="configLocation" value="classpath:ehcache.xml" />
 	</bean>
+	
 	<!--spring的缓存  -->
 	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="ehcacheManagerFactory" />

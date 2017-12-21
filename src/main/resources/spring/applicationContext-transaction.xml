@@ -50,16 +50,36 @@
 				rollback-for="java.lang.Exception" />
 			<tx:method name="save*" propagation="REQUIRED" read-only="false"
 				rollback-for="java.lang.Exception" />
+				
+				
+			<!--定义查询方法都是只读的 -->
+			<tx:method name="query*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			
+			<!--其他方法使用默认事务策略 -->
+			<tx:method name="*" />
+				
 		</tx:attributes>
 	</tx:advice>
+	
+	<!-- 定义AOP切面处理器  动态切换数据源-->
+	<bean class="sgg.qin.framework.datasource.DataSourceAspect" id="dataSourceAspect" />
 
 	<!-- 配置事务切面-->
 	<aop:config>
 		<!--定义切点  -->
-		<aop:pointcut id="pc" expression="execution(* sgg.qin.service..*(..))" />
-		<!-- 定义环绕通知 -->
+		<aop:pointcut id="txPointcut" expression="execution(* sgg.qin.service..*(..))" />
+		
+		<!-- 定义事务的环绕通知 -->
 		<!-- aop:advisor，是有顺序的，必须放在aop:pointcut之后 -->
-		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="50"/>
+		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" order="50"/>
+		
+		<!-- 将切面应用到自定义的切面处理器上，-9999保证该切面优先级最高执行 -->
+		<aop:aspect ref="dataSourceAspect" order="-9999">
+			<!-- 配置前置通知 和切点 和事务的切点保持一致-->
+			<aop:before method="before" pointcut-ref="txPointcut" />
+		</aop:aspect>
 	</aop:config>
 	
 

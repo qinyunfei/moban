@@ -582,6 +582,26 @@ public class RedisClientTemplate {
         boolean broken = false;  
         try {  
             result = shardedJedis.del(key);  
+           
+  
+        } catch (Exception e) {  
+            log.error(e.getMessage(), e);  
+            broken = true;  
+        } finally {  
+            redisDataSource.returnResource(shardedJedis, broken);  
+        }  
+        return result;  
+    }  
+    
+    public Long del(byte[] key) {  
+        Long result = null;  
+        ShardedJedis shardedJedis = redisDataSource.getShardedJedis();  
+        if (shardedJedis == null) {  
+            return result;  
+        }  
+        boolean broken = false;  
+        try {  
+            result= shardedJedis.del(key);
   
         } catch (Exception e) {  
             log.error(e.getMessage(), e);  

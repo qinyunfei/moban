@@ -30,7 +30,7 @@
 			<bean class="sgg.qin.framework.shiro.permission.MyRolePermissionResolver"></bean> 
 		 </property>
 	</bean>
-
+ 
 	<!-- 凭证匹配器 密码匹配策略 -->
 	<bean id="credentialsMatcher"
 		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -79,13 +79,22 @@
 		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
 
 	<!-- 会话DAO EnterpriseCacheSessionDAO：基于缓存 -->
-	<bean id="sessionDAO"
+	<bean id="sessionDAO2"
 		class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
 		<!--设置Session缓存名字 默认就是它 -->
 		<property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
 		<!--设置会话ID生成器 默认就是它 -->
 		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
 	</bean>
+	
+	
+	
+	<!-- 自定义会话DAO EnterpriseCacheSessionDAO：基于缓存 -->
+	<bean id="sessionDAO1" class="sgg.qin.framework.shiro.session.MySessionDAO"> 
+	<!--设置会话ID生成器 默认就是它 -->
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+	</bean>
+	
 
 	<!-- 会话验证调度器 有jdk和quartz两种方式 -->
 	<bean id="sessionValidationScheduler"
@@ -111,7 +120,7 @@
 		<!--设置会话验证调度器，默认就是使用 -->
 		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
 		<!--设置sessionDAO -->
-		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="sessionDAO" ref="sessionDAO1" />
 		<!--是否启用/禁用Session Id Cookie -->
 		<property name="sessionIdCookieEnabled" value="true" />
 		<!--设置Cookie模版 -->
