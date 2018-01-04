@@ -71,7 +71,7 @@
 		<!--设置为true，则客户端不会暴露给客户端脚本代码 -->
 		<property name="httpOnly" value="true" />
 		<!--设置Cookie的过期时间 秒为单位 -->
-		<property name="maxAge" value="1800" />
+		<property name="maxAge" value="-1" />
 	</bean>
 
 	<!-- 会话ID生成器 -->
@@ -179,6 +179,7 @@
 			</util:map>
 		</property>
 		<property name="filterChainDefinitions">
+		<!--authc认证过   user记住我   anon未登录未记住我 -->
 			<value>
 				/login = authc
 				/logout = logout
@@ -187,7 +188,7 @@
 				/resource/**=anon
 				/windou/**=anon
 				/registration=anon
-				/** = authc
+				/** = user
 			</value>
 		</property>
 	</bean>
