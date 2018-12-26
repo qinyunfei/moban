@@ -1,19 +1,31 @@
 package sgg.qin.web.controller.systems;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.baidu.ueditor.ActionEnter;
+import com.baidu.ueditor.define.ActionMap;
 
 @Controller
 public class IndexController {
 	
-	
+
 	// 访问系统首页
 	@RequestMapping("/")
 	public String Index() throws Exception {
 		return "index2";
 	}
+	
+	// 访问系统首页
+	@RequestMapping("/2")
+	public String Index2() throws Exception {
+		return "index1";
+	}
+	
 	// 资源管理首页
 	@RequiresPermissions("menu:menu")
 	@RequestMapping("/resourceIndext")
@@ -25,7 +37,8 @@ public class IndexController {
 	@RequiresPermissions("role:menu")
 	@RequestMapping("/roleIndext")
 	public String roleIndext() {
-		return "sys/roleIndext";
+		//return "sys/roleIndext";
+		return "sys/indext";
 	}
 
 	// 用户管理管理首页

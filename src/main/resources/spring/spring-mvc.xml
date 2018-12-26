@@ -56,7 +56,7 @@
 
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		class="sgg.qin.framework.springmvc.CommonsMultipartResolverPhhc">
 		<property name="maxUploadSize">
 			<value>104857600</value>
 		</property>
@@ -84,10 +84,13 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 
+	
+	<!-- 自定义redis缓存切面 -->
+	<bean  class="sgg.qin.framework.aop.CacheAspect"></bean>
 
 
 	<!--手动注入切面到mvc -->
-	<bean id="cacheAspect" class="sgg.qin.framework.aop.ActionAspec"></bean>
+	<bean class="sgg.qin.framework.aop.ActionAspec"></bean>
 
 	<!-- exceptionResolver自定义异常处理程序解析器 springmvc九大组件之一 全局异常捕捉 -->
 	<bean class="sgg.qin.framework.springmvc.exception.MyExceptionResolver"></bean>

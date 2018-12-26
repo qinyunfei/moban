@@ -40,9 +40,16 @@
 		<constructor-arg index="1">
 			<list>
 				<!-- 可以配置多个redis服务器 -->
-				<bean name="master" class="redis.clients.jedis.JedisShardInfo">
+				<bean  class="redis.clients.jedis.JedisShardInfo">
 					<constructor-arg index="0" value="${redis.master.host.0}" />
 					<constructor-arg index="1" value="${redis.master.port.0}"
+						type="int" />
+
+					<!-- <property name="password" value="${redis.pass}"/> -->
+				</bean>
+				<bean  class="redis.clients.jedis.JedisShardInfo">
+					<constructor-arg index="0" value="${redis.master.host.1}" />
+					<constructor-arg index="1" value="${redis.master.port.1}"
 						type="int" />
 
 					<!-- <property name="password" value="${redis.pass}"/> -->

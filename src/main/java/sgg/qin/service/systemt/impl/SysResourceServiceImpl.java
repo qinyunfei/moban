@@ -16,6 +16,7 @@ import sgg.qin.dao.systems.SysRolesResourceMapper;
 import sgg.qin.domain.systems.SysResource;
 import sgg.qin.domain.systems.SysRolesResource;
 import sgg.qin.domain.systems.SysUser;
+import sgg.qin.framework.annotation.Cacheable;
 import sgg.qin.service.sub.BaseServiceImpl;
 import sgg.qin.service.systemt.SysResourceService;
 import sgg.qin.util.Tools;

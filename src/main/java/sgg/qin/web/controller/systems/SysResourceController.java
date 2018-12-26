@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import sgg.qin.domain.systems.SysResource;
 import sgg.qin.domain.systems.SysUser;
+import sgg.qin.framework.annotation.CacheEvict;
+import sgg.qin.framework.annotation.Cacheable;
 import sgg.qin.service.systemt.SysResourceService;
 import sgg.qin.util.PageData;
 import sgg.qin.web.controller.base.BaseController;
@@ -109,6 +111,8 @@ public class SysResourceController extends BaseController {
 	// 获取所有资源
 	@RequestMapping("/allresource")
 	@ResponseBody
+	//缓存资源
+	@Cacheable(fieldKey = "0")
 	public List<SysResource> allresource() throws Exception {
 		
 		List<SysResource> list=sysResourceService.listSubResourceById(0);
@@ -119,6 +123,8 @@ public class SysResourceController extends BaseController {
 	//修改资源
 	@RequestMapping("/updateResource")
 	@ResponseBody
+	//清空缓存
+	@CacheEvict(key ="sgg.qin.web.controller.systems.SysResourceController.allresource",fun=true)
 	public PageData<String, Object> updateResource(SysResource sysResource) throws Exception {
 		sysResource.setIcon("menu-icon glyphicon glyphicon-leaf");
 		sysResource.setAvailable(false);
@@ -129,6 +135,8 @@ public class SysResourceController extends BaseController {
 	// 添加资源
 	@RequestMapping("/insertResource")
 	@ResponseBody
+	//清空缓存
+	@CacheEvict(key ="sgg.qin.web.controller.systems.SysResourceController.allresource",fun=true)
 	public PageData<String, Object> insertResource(SysResource sysResource) throws Exception {
 		sysResource.setIcon("menu-icon glyphicon glyphicon-leaf");
 		sysResource.setAvailable(false);
@@ -140,6 +148,8 @@ public class SysResourceController extends BaseController {
 	//删除资源
 	@RequestMapping("/deleteResourceById")
 	@ResponseBody
+	//清空缓存
+	@CacheEvict(key ="sgg.qin.web.controller.systems.SysResourceController.allresource",fun=true)
 	public PageData<String, Object> deleteResourceById(int id) throws Exception {
 		sysResourceService.deleteResourceById(id);
 		return this.getMsgPageData(true, "删除成功");

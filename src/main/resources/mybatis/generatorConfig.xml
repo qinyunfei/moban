@@ -58,7 +58,7 @@
 
 
 		<!-- 系统表开始 -->
-		<table tableName="dept" />
+		<table tableName="fault" />
 
 	</context>
 </generatorConfiguration>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sgg.qin.dao.systems.FaultMapper">
+  <resultMap id="BaseResultMap" type="sgg.qin.domain.systems.Fault">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="problem_type" jdbcType="INTEGER" property="problemType" />
+    <result column="problem_module" jdbcType="INTEGER" property="problemModule" />
+    <result column="forward_people" jdbcType="VARCHAR" property="forwardPeople" />
+    <result column="forward_unit" jdbcType="VARCHAR" property="forwardUnit" />
+    <result column="emergency_degree" jdbcType="INTEGER" property="emergencyDegree" />
+    <result column="problem_source" jdbcType="INTEGER" property="problemSource" />
+    <result column="proposed_date" jdbcType="TIMESTAMP" property="proposedDate" />
+    <result column="problem_description" jdbcType="VARCHAR" property="problemDescription" />
+    <result column="response_time" jdbcType="TIME" property="responseTime" />
+    <result column="scheduled_completion_date" jdbcType="DATE" property="scheduledCompletionDate" />
+    <result column="actual_completion" jdbcType="TIMESTAMP" property="actualCompletion" />
+    <result column="problem_state" jdbcType="INTEGER" property="problemState" />
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="solution" jdbcType="VARCHAR" property="solution" />
+    <result column="add_repeat" jdbcType="VARCHAR" property="addRepeat" />
+  </resultMap>
+</mapper>

@@ -25,7 +25,7 @@
 
 	<!-- 2.创建httpClient -->
 	<!-- 通过httpClientBulider得到httpClient对象，并且设置httpClient为多利模式 -->
-	<!-- 要保证httpClient为多利，以为每次都是新的http请求 -->
+	<!-- 要保证httpClient为多利，因为每次都是新的http请求 -->
 	<bean id="httpClient" class="org.apache.http.impl.client.CloseableHttpClient"
 		factory-bean="httpClientBuilder" factory-method="build" scope="prototype" />
 

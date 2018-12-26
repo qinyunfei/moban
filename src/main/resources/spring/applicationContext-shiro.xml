@@ -188,7 +188,7 @@
 				/resource/**=anon
 				/windou/**=anon
 				/registration=anon
-				/** = user
+				/** = anon
 			</value>
 		</property>
 	</bean>

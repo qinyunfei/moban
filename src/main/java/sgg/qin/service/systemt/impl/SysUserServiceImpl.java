@@ -19,6 +19,7 @@ import sgg.qin.dao.systems.SysUsersRolesMapper;
 import sgg.qin.domain.systems.SysRoles;
 import sgg.qin.domain.systems.SysUser;
 import sgg.qin.domain.systems.SysUsersRoles;
+import sgg.qin.framework.annotation.Cacheable;
 import sgg.qin.framework.shiro.password.PasswordHelper;
 import sgg.qin.service.sub.BaseServiceImpl;
 import sgg.qin.service.systemt.SysUserService;
